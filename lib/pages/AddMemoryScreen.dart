@@ -147,12 +147,19 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
 
   //the field that allows the user to get the location of the memory
   buildMemoryLocation() {
-    return RaisedButton(
-      onPressed: () {
-        getLocation();
-        print('get location is called');
-      },
-      child: Icon(Icons.add_location),
+    return Column(
+      // ignore: deprecated_member_use
+      children: [
+        RaisedButton(
+          onPressed: () {
+            getLocation();
+            print('get location is called');
+          },
+          child: Icon(Icons.add_location),
+        ),
+        Text('Latitude is ' + '$memoryLat'.toString()),
+        Text('Longitude is ' + memoryLong.toString()),
+      ],
     );
   }
 
@@ -167,10 +174,36 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   }
 
   getLocation() async {
-    var pos = await location.getLocation();
-    print(pos);
-    memoryLat = pos.latitude;
-    memoryLong = pos.longitude;
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+    print(_locationData);
+    memoryLat = _locationData.latitude;
+    memoryLong = _locationData.longitude;
+    setState(() {
+      memoryLat = _locationData.latitude;
+      memoryLong = _locationData.longitude;
+    });
     print(memoryLat);
     print(memoryLong);
   }
