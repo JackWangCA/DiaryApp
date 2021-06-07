@@ -21,10 +21,9 @@ class _MainScreenPageState extends State<MainScreenPage> {
     super.initState();
   }
 
-  void loadSharedPreferencesAndData() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    loadData();
-  }
+  //
+  //the GUI
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -48,33 +47,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void loadData() {
-    List<String> listString = sharedPreferences.getStringList('memoryList');
-    if (listString != null) {
-      memoryList = listString
-          .map((memory) => Memory.fromMap(json.decode(memory)))
-          .toList();
-      setState(() {});
-    }
-  }
-
-  void saveData() {
-    List<String> stringList =
-        memoryList.map((memory) => json.encode(memory.toMap())).toList();
-    sharedPreferences.setStringList('memoryList', stringList);
-  }
-
-  void addMemory(Memory memory) {
-    // Insert an item into the top of our list, on index zero
-    memoryList.insert(0, memory);
-    saveData();
-  }
-
-  void removeMemory(Memory memory) {
-    memoryList.remove(memory);
-    saveData();
   }
 
   Widget emptyList() {
@@ -102,5 +74,41 @@ class _MainScreenPageState extends State<MainScreenPage> {
         child: Text(memory.memoryName),
       ),
     );
+  }
+
+  //
+  // the methods that manage the data
+  //
+
+  void saveData() {
+    List<String> stringList =
+        memoryList.map((memory) => json.encode(memory.toMap())).toList();
+    sharedPreferences.setStringList('memoryList', stringList);
+  }
+
+  void addMemory(Memory memory) {
+    // Insert an item into the top of our list, on index zero
+    memoryList.insert(0, memory);
+    saveData();
+  }
+
+  void removeMemory(Memory memory) {
+    memoryList.remove(memory);
+    saveData();
+  }
+
+  void loadData() {
+    List<String> listString = sharedPreferences.getStringList('memoryList');
+    if (listString != null) {
+      memoryList = listString
+          .map((memory) => Memory.fromMap(json.decode(memory)))
+          .toList();
+      setState(() {});
+    }
+  }
+
+  void loadSharedPreferencesAndData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    loadData();
   }
 }

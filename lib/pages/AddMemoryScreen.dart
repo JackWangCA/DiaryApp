@@ -1,7 +1,5 @@
 import 'package:diary/model/MemoryModel.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:diary/pages/MainScreen.dart';
 import 'package:geolocator/geolocator.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
@@ -16,8 +14,9 @@ class AddMemoryPage extends StatefulWidget {
 }
 
 class _AddMemoryPageState extends State<AddMemoryPage> {
-  String dropdownValue = 'Study';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //declaring variables
+  String dropdownValue = 'Study';
   String memoryImagePath;
   String memoryName = '';
   String memoryDescription = '';
@@ -25,10 +24,13 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   DateTime memoryCreatedTime;
   double memoryLat = 0.00;
   double memoryLong = 0.00;
+
+  //
+  //the GUI
+  //
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //the app bar that appears on the top of the screen
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -161,27 +163,24 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     );
   }
 
-  saveMemory() {
-    print(Text('Save Memory function is called'));
-    var now = DateTime.now();
-    now = memoryCreatedTime;
-    if (!_formKey.currentState.validate()) {
-      return;
+  Widget locationHintText() {
+    if (memoryLat == 0.0 && memoryLong == 0.0) {
+      return Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          child: Text(
+            'Please add a location by pressing the button above',
+          ));
+    } else {
+      return Column(
+        children: [
+          Text('Latitude is ' + '$memoryLat'.toString()),
+          Text('Longitude is ' + memoryLong.toString()),
+        ],
+      );
     }
-    _formKey.currentState.save();
-    Memory currentMemory = new Memory(
-      memoryCreatedTime: memoryCreatedTime,
-      memoryName: memoryName,
-      memoryDescription: memoryDescription,
-      memoryCategory: memoryCategory,
-      memoryLat: memoryLat,
-      memoryLong: memoryLong,
-    );
-    Navigator.of(context).pop(currentMemory);
-
-    print('form saved');
   }
 
+  //data managing methods
   getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -216,20 +215,27 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     print(memoryLong);
   }
 
-  Widget locationHintText() {
-    if (memoryLat == 0.0 && memoryLong == 0.0) {
-      return Padding(
-          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          child: Text(
-            'Please add a location by pressing the button above',
-          ));
-    } else {
-      return Column(
-        children: [
-          Text('Latitude is ' + '$memoryLat'.toString()),
-          Text('Longitude is ' + memoryLong.toString()),
-        ],
-      );
+  saveMemory() {
+    print(Text('Save Memory function is called'));
+    DateTime now = DateTime.now();
+    memoryCreatedTime = now;
+    // String convertedDateTime =
+    //     "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}";
+    // print(convertedDateTime);
+    if (!_formKey.currentState.validate()) {
+      return;
     }
+    _formKey.currentState.save();
+    Memory currentMemory = new Memory(
+      memoryCreatedTime: memoryCreatedTime,
+      memoryName: memoryName,
+      memoryDescription: memoryDescription,
+      memoryCategory: memoryCategory,
+      memoryLat: memoryLat,
+      memoryLong: memoryLong,
+    );
+    Navigator.of(context).pop(currentMemory);
+
+    print('form saved');
   }
 }

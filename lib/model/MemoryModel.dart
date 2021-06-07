@@ -18,18 +18,9 @@ class Memory {
     this.memoryLong,
   });
 
-  Memory.fromMap(Map map)
-      : this.memoryCreatedTime = map['memoryCreatedTime'],
-        // this.memoryImagePath = map['memoryImagePath'],
-        this.memoryName = map['memoryName'],
-        this.memoryDescription = map['memoryDescription'],
-        this.memoryCategory = map['memoryCategory'],
-        this.memoryLat = map['memoryLat'],
-        this.memoryLong = map['memoryLong'];
-
   Map toMap() {
     return {
-      'memoryCreatedTime': this.memoryCreatedTime,
+      'memoryCreatedTime': this.memoryCreatedTime.toIso8601String(),
       // 'memoryImagePath': this.memoryImagePath,
       'memoryName': this.memoryName,
       'memoryDescription': this.memoryDescription,
@@ -38,4 +29,15 @@ class Memory {
       'memoryLong': this.memoryLong,
     };
   }
+
+  Memory.fromMap(Map map)
+      : this.memoryCreatedTime = map['memoryCreatedTime'] == null
+            ? null
+            : DateTime.tryParse(map['memoryCreatedTime']),
+        // this.memoryImagePath = map['memoryImagePath'],
+        this.memoryName = map['memoryName'],
+        this.memoryDescription = map['memoryDescription'],
+        this.memoryCategory = map['memoryCategory'],
+        this.memoryLat = map['memoryLat'],
+        this.memoryLong = map['memoryLong'];
 }
