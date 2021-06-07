@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:diary/model/MemoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -45,6 +49,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              buildMemoryImage(),
+              SizedBox(height: 20),
               buildMemoryName(),
               SizedBox(height: 20),
               buildMemoryDescription(),
@@ -69,9 +75,28 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     );
   }
 
+  Widget buildMemoryImage() {
+    if (memoryImagePath != null) {
+      final image = FileImage(File(memoryImagePath));
+      return null;
+    } else {
+      return ElevatedButton(
+          onPressed: () {},
+          child: Icon(
+            Icons.add_a_photo,
+          ));
+    }
+  }
+
   //the field that allows the user to type in the name of the memory
   Widget buildMemoryName() {
     return TextFormField(
+      inputFormatters: [
+        BlacklistingTextInputFormatter(
+          RegExp(
+              r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'),
+        ),
+      ],
       decoration: InputDecoration(
         hintText: 'A name for your memory',
         labelText: 'Name',
@@ -95,6 +120,12 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   //the field that allows the user to type in the description of the memory
   buildMemoryDescription() {
     return TextFormField(
+      inputFormatters: [
+        BlacklistingTextInputFormatter(
+          RegExp(
+              r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'),
+        ),
+      ],
       decoration: InputDecoration(
         hintText: 'Some description for your memory',
         labelText: 'Description',
@@ -219,9 +250,9 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     print(Text('Save Memory function is called'));
     DateTime now = DateTime.now();
     memoryCreatedTime = now;
-    // String convertedDateTime =
-    //     "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}";
-    // print(convertedDateTime);
+    String convertedDateTime =
+        "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}";
+    print(convertedDateTime);
     if (!_formKey.currentState.validate()) {
       return;
     }
