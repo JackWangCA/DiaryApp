@@ -1,6 +1,7 @@
 import 'package:diary/model/MemoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:location/location.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -15,6 +16,10 @@ class AddMemoryPage extends StatefulWidget {
 
 class _AddMemoryPageState extends State<AddMemoryPage> {
   String dropdownValue = 'Study';
+  Location location = new Location();
+
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String memoryImagePath;
   String memoryName = '';
@@ -46,8 +51,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
               SizedBox(height: 20),
               buildMemoryCategory(),
               SizedBox(height: 20),
-              // buildMemoryLocation(),
-              // SizedBox(height: 20),
+              buildMemoryLocation(),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -141,7 +146,15 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   }
 
   //the field that allows the user to get the location of the memory
-  buildMemoryLocation() {}
+  buildMemoryLocation() {
+    return RaisedButton(
+      onPressed: () {
+        getLocation();
+        print('get location is called');
+      },
+      child: Icon(Icons.add_location),
+    );
+  }
 
   saveMemory() {
     print(Text('Save Memory function is called'));
@@ -151,5 +164,14 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     _formKey.currentState.save();
 
     print('form saved');
+  }
+
+  getLocation() async {
+    var pos = await location.getLocation();
+    print(pos);
+    memoryLat = pos.latitude;
+    memoryLong = pos.longitude;
+    print(memoryLat);
+    print(memoryLong);
   }
 }
