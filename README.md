@@ -1,6 +1,6 @@
 # diary
 
-A new Flutter project.
+This is a flutter app that allows users to store their memories on their phones.
 
 ## Getting Started
 
