@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Diary App',
       themeMode: ThemeMode.light,
       theme: MyTheme.lightTheme,
-      home: MainScreen(),
+      home: MainScreenPage(),
     );
   }
 }
