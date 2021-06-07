@@ -40,7 +40,9 @@ class _MainScreenPageState extends State<MainScreenPage> {
               return AddMemoryPage();
             }),
           ).then((memory) {
-            addMemory(memory);
+            setState(() {
+              addMemory(memory);
+            });
           });
         },
         child: Icon(Icons.add),
