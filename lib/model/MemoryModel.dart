@@ -10,7 +10,7 @@ class Memory {
 
   Memory({
     this.memoryCreatedTime,
-    this.memoryImagePath,
+    // this.memoryImagePath,
     this.memoryName,
     this.memoryDescription,
     this.memoryCategory,
@@ -20,7 +20,7 @@ class Memory {
 
   Memory.fromMap(Map map)
       : this.memoryCreatedTime = map['memoryCreatedTime'],
-        this.memoryImagePath = map['memoryImagePath'],
+        // this.memoryImagePath = map['memoryImagePath'],
         this.memoryName = map['memoryName'],
         this.memoryDescription = map['memoryDescription'],
         this.memoryCategory = map['memoryCategory'],
@@ -30,7 +30,7 @@ class Memory {
   Map toMap() {
     return {
       'memoryCreatedTime': this.memoryCreatedTime,
-      'memoryImagePath': this.memoryImagePath,
+      // 'memoryImagePath': this.memoryImagePath,
       'memoryName': this.memoryName,
       'memoryDescription': this.memoryDescription,
       'memoryCategory': this.memoryCategory,

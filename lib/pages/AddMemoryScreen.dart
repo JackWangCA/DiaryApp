@@ -1,7 +1,8 @@
 import 'package:diary/model/MemoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:location/location.dart';
+import 'package:diary/pages/MainScreen.dart';
+import 'package:geolocator/geolocator.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -16,15 +17,12 @@ class AddMemoryPage extends StatefulWidget {
 
 class _AddMemoryPageState extends State<AddMemoryPage> {
   String dropdownValue = 'Study';
-  Location location = new Location();
-
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String memoryImagePath;
   String memoryName = '';
   String memoryDescription = '';
   String memoryCategory = '';
+  DateTime memoryCreatedTime;
   double memoryLat = 0.00;
   double memoryLong = 0.00;
   @override
@@ -165,44 +163,54 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
 
   saveMemory() {
     print(Text('Save Memory function is called'));
+    var now = DateTime.now();
+    now = memoryCreatedTime;
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
+    Memory currentMemory = new Memory(
+      memoryCreatedTime: memoryCreatedTime,
+      memoryName: memoryName,
+      memoryDescription: memoryDescription,
+      memoryCategory: memoryCategory,
+      memoryLat: memoryLat,
+      memoryLong: memoryLong,
+    );
+    Navigator.of(context).pop(currentMemory);
 
     print('form saved');
   }
 
   getLocation() async {
-    Location location = new Location();
+    bool serviceEnabled;
+    LocationPermission permission;
 
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    _locationData = await location.getLocation();
-    print(_locationData);
-    memoryLat = _locationData.latitude;
-    memoryLong = _locationData.longitude;
+    var currenPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
     setState(() {
-      memoryLat = _locationData.latitude;
-      memoryLong = _locationData.longitude;
+      memoryLat = currenPosition.latitude;
+      memoryLong = currenPosition.longitude;
     });
     print(memoryLat);
     print(memoryLong);

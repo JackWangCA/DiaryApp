@@ -39,7 +39,9 @@ class _MainScreenPageState extends State<MainScreenPage> {
             MaterialPageRoute(builder: (BuildContext context) {
               return AddMemoryPage();
             }),
-          );
+          ).then((memory) {
+            addMemory(memory);
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -62,6 +64,17 @@ class _MainScreenPageState extends State<MainScreenPage> {
     sharedPreferences.setStringList('memoryList', stringList);
   }
 
+  void addMemory(Memory memory) {
+    // Insert an item into the top of our list, on index zero
+    memoryList.insert(0, memory);
+    saveData();
+  }
+
+  void removeMemory(Memory memory) {
+    memoryList.remove(memory);
+    saveData();
+  }
+
   Widget emptyList() {
     return Center(
       child: Text('No Memories Yet'),
@@ -77,5 +90,15 @@ class _MainScreenPageState extends State<MainScreenPage> {
     );
   }
 
-  Widget buildItem(Memory memory, int index) {}
+  Widget buildItem(Memory memory, int index) {
+    Memory memory = memoryList[index];
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.all(10.0),
+        width: MediaQuery.of(context).size.width,
+        child: Text(memory.memoryName),
+      ),
+    );
+  }
 }
