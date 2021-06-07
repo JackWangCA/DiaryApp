@@ -14,6 +14,7 @@ class AddMemoryPage extends StatefulWidget {
 }
 
 class _AddMemoryPageState extends State<AddMemoryPage> {
+  String dropdownValue = 'One';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String memoryImagePath;
   String memoryName = '';
@@ -113,9 +114,25 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
 
   //the field that allows the user to type in the category of the memory
   buildMemoryCategory() {
-    return DropdownButton<String>(
-      value: 'HI',
-      items: null,
+    return DropdownButtonFormField(
+      onSaved: (String value) {
+        memoryCategory = value;
+      },
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Memory Category is Required';
+        }
+
+        return null;
+      },
+      value: dropdownValue,
+      items: <String>['Study', 'Family', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 
