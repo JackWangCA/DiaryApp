@@ -120,14 +120,15 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   //the field that allows the user to type in the category of the memory
   buildMemoryCategory() {
     return DropdownButtonFormField(
+      decoration: InputDecoration(labelText: 'Category'),
       validator: (String value) {
-        if (value.isEmpty) {
+        if (value == null) {
           return 'Memory Category is Required';
         }
 
         return null;
       },
-      value: 'Study',
+      // value: 'Study',
       items: <String>['Study', 'Family', 'Friends', 'Vacation']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -157,8 +158,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           },
           child: Icon(Icons.add_location),
         ),
-        Text('Latitude is ' + '$memoryLat'.toString()),
-        Text('Longitude is ' + memoryLong.toString()),
+        locationHintText(),
       ],
     );
   }
@@ -206,5 +206,22 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     });
     print(memoryLat);
     print(memoryLong);
+  }
+
+  Widget locationHintText() {
+    if (memoryLat == 0.0 && memoryLong == 0.0) {
+      return Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          child: Text(
+            'Please add a location by pressing the button above',
+          ));
+    } else {
+      return Column(
+        children: [
+          Text('Latitude is ' + '$memoryLat'.toString()),
+          Text('Longitude is ' + memoryLong.toString()),
+        ],
+      );
+    }
   }
 }
