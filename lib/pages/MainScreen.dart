@@ -33,15 +33,18 @@ class _MainScreenPageState extends State<MainScreenPage> {
       ),
       body: memoryList.isEmpty ? emptyList() : listView(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
               return AddMemoryPage();
             }),
           ).then((memory) {
-            setState(() {
-              addMemory(memory);
-            });
+            if (memory != null) {
+              setState(() {
+                addMemory(memory);
+              });
+            }
           });
         },
         child: Icon(Icons.add),
@@ -59,6 +62,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
     return ListView.builder(
       itemCount: memoryList.length,
       itemBuilder: (BuildContext context, int index) {
+        print(memoryList[index].memoryImagePath);
         return buildItem(memoryList[index], index);
       },
     );
@@ -71,7 +75,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
       child: Container(
         margin: EdgeInsets.all(10.0),
         width: MediaQuery.of(context).size.width,
-        child: Text(memory.memoryName),
+        child: Text(memory.memoryImagePath),
       ),
     );
   }

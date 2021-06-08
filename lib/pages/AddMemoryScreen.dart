@@ -20,11 +20,13 @@ class AddMemoryPage extends StatefulWidget {
 class _AddMemoryPageState extends State<AddMemoryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //declaring variables
+  File _image;
+  final picker = ImagePicker();
   String dropdownValue = 'Study';
   String memoryImagePath;
-  String memoryName = '';
-  String memoryDescription = '';
-  String memoryCategory = '';
+  String memoryName;
+  String memoryDescription;
+  String memoryCategory;
   DateTime memoryCreatedTime;
   double memoryLat = 0.00;
   double memoryLong = 0.00;
@@ -65,6 +67,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       ),
       //the floating button at the bottom right ofthe screen
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           saveMemory();
         },
@@ -78,10 +81,27 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   Widget buildMemoryImage() {
     if (memoryImagePath != null) {
       final image = FileImage(File(memoryImagePath));
-      return null;
+      return Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: <Widget>[
+          Image.file(
+            _image,
+            fit: BoxFit.cover,
+            height: 250,
+          ),
+          FlatButton(
+            padding: EdgeInsets.all(16),
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              'Change Image',
+            ),
+            onPressed: getImageFromLibrary,
+          )
+        ],
+      );
     } else {
       return ElevatedButton(
-          onPressed: () {},
+          onPressed: getImageFromLibrary,
           child: Icon(
             Icons.add_a_photo,
           ));
@@ -212,6 +232,24 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   }
 
   //data managing methods
+
+  Future getImageFromLibrary() async {
+    var pickedFile;
+    try {
+      pickedFile = await picker.getImage(source: ImageSource.gallery);
+    } catch (e) {}
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+        memoryImagePath = pickedFile.path;
+        print(memoryImagePath);
+      });
+    } else {
+      return;
+    }
+  }
+
   getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -258,6 +296,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     }
     _formKey.currentState.save();
     Memory currentMemory = new Memory(
+      memoryImagePath: memoryImagePath,
       memoryCreatedTime: memoryCreatedTime,
       memoryName: memoryName,
       memoryDescription: memoryDescription,
@@ -265,6 +304,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       memoryLat: memoryLat,
       memoryLong: memoryLong,
     );
+    print(currentMemory.memoryImagePath);
+
     Navigator.of(context).pop(currentMemory);
 
     print('form saved');
