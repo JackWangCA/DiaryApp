@@ -1,7 +1,7 @@
 class Memory {
   //all the variables that are stored in the memory class
   DateTime memoryCreatedTime;
-  String memoryImagePath;
+  String memoryImage;
   String memoryName;
   String memoryDescription;
   String memoryCategory;
@@ -10,7 +10,7 @@ class Memory {
 
   Memory({
     this.memoryCreatedTime,
-    this.memoryImagePath,
+    this.memoryImage,
     this.memoryName,
     this.memoryDescription,
     this.memoryCategory,
@@ -23,7 +23,7 @@ class Memory {
       'memoryCreatedTime': this.memoryCreatedTime != null
           ? this.memoryCreatedTime.toIso8601String()
           : null,
-      'memoryImagePath': this.memoryImagePath,
+      'memoryImagePath': this.memoryImage,
       'memoryName': this.memoryName,
       'memoryDescription': this.memoryDescription,
       'memoryCategory': this.memoryCategory,
@@ -36,7 +36,7 @@ class Memory {
       : this.memoryCreatedTime = map['memoryCreatedTime'] == null
             ? null
             : DateTime.tryParse(map['memoryCreatedTime']),
-        this.memoryImagePath = map['memoryImagePath'],
+        this.memoryImage = map['memoryImagePath'],
         this.memoryName = map['memoryName'],
         this.memoryDescription = map['memoryDescription'],
         this.memoryCategory = map['memoryCategory'],

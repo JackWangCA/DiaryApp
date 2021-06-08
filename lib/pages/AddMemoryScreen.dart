@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:diary/model/MemoryModel.dart';
@@ -5,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as path;
+import 'package:flutter_native_image/flutter_native_image.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -25,7 +25,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   File _image;
   final picker = ImagePicker();
   String dropdownValue = 'Study';
-  String memoryImagePath;
+  String memoryImage;
   String memoryName;
   String memoryDescription;
   String memoryCategory;
@@ -81,8 +81,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   }
 
   Widget buildMemoryImage() {
-    if (memoryImagePath != null) {
-      final image = FileImage(File(memoryImagePath));
+    if (memoryImage != null) {
+      final image = FileImage(File(memoryImage));
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
@@ -242,14 +242,24 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     } catch (e) {}
 
     if (pickedFile != null) {
-      Directory appDocDir = await getApplicationDocumentsDirectory();
-      final fileName = path.basename(pickedFile.path);
-      final savedImage =
-          await File(pickedFile.path).copy('${appDocDir.path}/$fileName');
+      var imageFile = File(pickedFile.path);
+      List<int> imageBytes = imageFile.readAsBytesSync();
+      String photoBase64 = base64Encode(imageBytes);
+      print(photoBase64);
+
       setState(() {
         _image = File(pickedFile.path);
-        memoryImagePath = savedImage.path;
+        memoryImage = photoBase64;
       });
+
+      // Directory appDocDir = await getApplicationDocumentsDirectory();
+      // final fileName = path.basename(pickedFile.path);
+      // final savedImage =
+      //     await File(pickedFile.path).copy('${appDocDir.path}/$fileName');
+      // setState(() {
+      //   _image = File(pickedFile.path);
+      //   memoryImagePath = savedImage.path;
+      // });
       // print(memoryImagePath);
     } else {
       return;
@@ -302,7 +312,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     }
     _formKey.currentState.save();
     Memory currentMemory = new Memory(
-      memoryImagePath: memoryImagePath,
+      memoryImage: memoryImage,
       memoryCreatedTime: memoryCreatedTime,
       memoryName: memoryName,
       memoryDescription: memoryDescription,
@@ -310,7 +320,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       memoryLat: memoryLat,
       memoryLong: memoryLong,
     );
-    print(currentMemory.memoryImagePath);
+    // print(currentMemory.memoryImage);
 
     Navigator.of(context).pop(currentMemory);
 

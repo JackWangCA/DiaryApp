@@ -64,7 +64,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
     return ListView.builder(
       itemCount: memoryList.length,
       itemBuilder: (BuildContext context, int index) {
-        // print(memoryList[index].memoryImagePath);
+        // print(memoryList[index].memoryImage);
         return buildItem(memoryList[index], index);
       },
     );
@@ -72,6 +72,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
 
   Widget buildItem(Memory memory, int index) {
     Memory memory = memoryList[index];
+    var _img64 = base64Decode(memory.memoryImage);
+    var currentImage = Image.memory(_img64);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -124,10 +126,12 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     child: Image(
                       height: 180.0,
                       width: 400.0,
-                      image: memory.memoryImagePath == null
+                      // image: AssetImage('assets/no_image.jpg'),
+                      image: memory.memoryImage == null
                           ? AssetImage('assets/no_image.jpg')
-                          : FileImage(File(memory.memoryImagePath)),
+                          : MemoryImage(_img64),
                       fit: BoxFit.cover,
+                      //need fixing
                     ),
                   ),
                   Positioned(
@@ -145,21 +149,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
                             letterSpacing: 1.1,
                           ),
                         ),
-                        // Row(
-                        //   children: [
-                        //     Icon(
-                        //       Icons.location_on,
-                        //       size: 15.0,
-                        //       color: Colors.white,
-                        //     ),
-                        //     Text(
-                        //       house.country,
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   )
