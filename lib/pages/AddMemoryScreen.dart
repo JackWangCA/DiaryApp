@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -240,11 +242,15 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     } catch (e) {}
 
     if (pickedFile != null) {
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      final fileName = path.basename(pickedFile.path);
+      final savedImage =
+          await File(pickedFile.path).copy('${appDocDir.path}/$fileName');
       setState(() {
         _image = File(pickedFile.path);
-        memoryImagePath = pickedFile.path;
-        print(memoryImagePath);
+        memoryImagePath = savedImage.path;
       });
+      // print(memoryImagePath);
     } else {
       return;
     }
