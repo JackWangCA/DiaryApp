@@ -18,6 +18,12 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(
+        widget.memory.memoryName,
+        style: Theme.of(context).textTheme.headline1,
+      )),
+    );
   }
 }

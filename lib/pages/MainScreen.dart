@@ -31,11 +31,14 @@ class _MainScreenPageState extends State<MainScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Memories'),
+        title: Text(
+          'Memories',
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
       body: memoryList.isEmpty ? emptyList() : listView(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).accentColor,
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
@@ -72,8 +75,11 @@ class _MainScreenPageState extends State<MainScreenPage> {
 
   Widget buildItem(Memory memory, int index) {
     Memory memory = memoryList[index];
-    var _img64 = base64Decode(memory.memoryImage);
-    var currentImage = Image.memory(_img64);
+    var _img64;
+    if (memory.memoryImage != null) {
+      _img64 = base64Decode(memory.memoryImage);
+    } //this decodes the image into bytes}
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -126,12 +132,11 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     child: Image(
                       height: 180.0,
                       width: 400.0,
-                      // image: AssetImage('assets/no_image.jpg'),
                       image: memory.memoryImage == null
-                          ? AssetImage('assets/no_image.jpg')
+                          ? AssetImage(
+                              'assets/no_image.jpg') //if the user provides no image
                           : MemoryImage(_img64),
                       fit: BoxFit.cover,
-                      //need fixing
                     ),
                   ),
                   Positioned(
@@ -142,12 +147,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
                       children: [
                         Text(
                           memory.memoryName,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.1,
-                          ),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
                     ),

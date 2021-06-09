@@ -44,7 +44,10 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Add Your Memory'),
+        title: Text(
+          'Add Your Memory',
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(18.0),
@@ -69,7 +72,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       ),
       //the floating button at the bottom right ofthe screen
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).accentColor,
         onPressed: () {
           saveMemory();
         },
@@ -93,7 +96,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           ),
           FlatButton(
             padding: EdgeInsets.all(16),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             child: Text(
               'Change Image',
             ),
@@ -103,10 +106,15 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       );
     } else {
       return ElevatedButton(
-          onPressed: getImageFromLibrary,
-          child: Icon(
-            Icons.add_a_photo,
-          ));
+        onPressed: getImageFromLibrary,
+        child: Icon(
+          Icons.add_a_photo,
+        ),
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).accentColor),
+        ),
+      );
     }
   }
 
@@ -128,6 +136,9 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       validator: (String value) {
         if (value.isEmpty) {
           return 'Memory Name is Required';
+        }
+        if (value.length < 3 || value.length > 20) {
+          return 'Try to keep the length of the name between 3 and 20 letters';
         }
 
         return null;
@@ -204,12 +215,18 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     return Column(
       // ignore: deprecated_member_use
       children: [
-        RaisedButton(
+        ElevatedButton(
           onPressed: () {
             getLocation();
             print('get location is called');
           },
-          child: Icon(Icons.add_location),
+          child: Icon(
+            Icons.add_location,
+          ),
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all(Theme.of(context).accentColor),
+          ),
         ),
         locationHintText(),
       ],
