@@ -40,7 +40,6 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
               height: 300,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                // borderRadius: BorderRadius.circular(30.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -50,7 +49,6 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                 ],
               ),
               child: ClipRRect(
-                // borderRadius: BorderRadius.circular(30.0),
                 child: Image(
                   image: _img64 != null
                       ? MemoryImage(_img64)
@@ -70,11 +68,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                     child: Text(
                       'Description',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.2,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ),
@@ -84,11 +78,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: Text(
                       widget.memory.memoryDescription,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        height: 1.5,
-                        letterSpacing: 1.1,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                 ),
@@ -98,11 +88,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                     child: Text(
                       'Category',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.2,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ),
@@ -112,11 +98,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: Text(
                       widget.memory.memoryCategory,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        height: 1.5,
-                        letterSpacing: 1.1,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                 ),
@@ -126,11 +108,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                     child: Text(
                       'Created Time',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.2,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ),
@@ -141,11 +119,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     child: Text(
                       DateFormat('yyyy-MM-dd – kk:mm')
                           .format(widget.memory.memoryCreatedTime),
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        height: 1.5,
-                        letterSpacing: 1.1,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                 ),
@@ -155,11 +129,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                     child: Text(
                       'Location',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.2,
-                      ),
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
                 ),
@@ -167,7 +137,10 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                   style: ElevatedButton.styleFrom(
                     primary: Theme.of(context).primaryColor,
                   ),
-                  child: Text('View Map Location'),
+                  child: Text(
+                    'View Map Location',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

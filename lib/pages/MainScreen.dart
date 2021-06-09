@@ -187,9 +187,26 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          memory.memoryName,
-                          style: Theme.of(context).textTheme.bodyText1,
+                        Stack(
+                          children: <Widget>[
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.7),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(6, 3, 6, 3),
+                              child: Text(
+                                memory.memoryName,
+                                style: Theme.of(context).textTheme.headline3,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

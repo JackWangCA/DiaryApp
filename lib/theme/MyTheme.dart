@@ -6,25 +6,28 @@ class MyTheme {
     primaryColor: Color(0xFFFFBD2E),
     accentColor: Color(0xFFF0F0F0),
     textTheme: TextTheme(
-      bodyText1: TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.1,
-          backgroundColor: Colors.black54),
+      bodyText2: TextStyle(
+        fontSize: 15.0,
+        height: 1.5,
+        letterSpacing: 1.1,
+      ),
       headline1: TextStyle(
         fontSize: 25.0,
         fontWeight: FontWeight.w500,
         color: Colors.black,
         letterSpacing: 0.4,
-        // fontFamily: 'SanFrancisco',
       ),
-      headline6: TextStyle(
-        fontSize: 36.0,
-        fontStyle: FontStyle.italic,
-        // fontFamily: 'SanFrancisco',
+      headline2: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 1.2,
+          color: Colors.black),
+      headline3: TextStyle(
+        color: Colors.black,
+        fontSize: 24.0,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 1.1,
       ),
-      bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
   );
 }
