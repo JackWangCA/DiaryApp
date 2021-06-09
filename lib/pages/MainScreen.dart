@@ -35,6 +35,30 @@ class _MainScreenPageState extends State<MainScreenPage> {
           'Memories',
           style: Theme.of(context).textTheme.headline1,
         ),
+        actions: [
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                icon: Icon(
+                  Icons.sort,
+                  color: Theme.of(context).accentColor,
+                  size: 25.0,
+                ),
+                items: <String>['Alphabet', 'Time']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String value) {
+                  // needs to implement
+                },
+              ),
+            ),
+          )
+        ],
       ),
       body: memoryList.isEmpty ? emptyList() : listView(),
       floatingActionButton: FloatingActionButton(
@@ -131,7 +155,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image(
                       height: 180.0,
-                      width: 400.0,
+                      width: MediaQuery.of(context).size.width,
                       image: memory.memoryImage == null
                           ? AssetImage(
                               'assets/no_image.jpg') //if the user provides no image

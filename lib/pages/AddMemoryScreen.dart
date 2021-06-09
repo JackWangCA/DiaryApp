@@ -121,12 +121,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   //the field that allows the user to type in the name of the memory
   Widget buildMemoryName() {
     return TextFormField(
-      inputFormatters: [
-        BlacklistingTextInputFormatter(
-          RegExp(
-              r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'),
-        ),
-      ],
       decoration: InputDecoration(
         hintText: 'A name for your memory',
         labelText: 'Name',
@@ -153,19 +147,13 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   //the field that allows the user to type in the description of the memory
   buildMemoryDescription() {
     return TextFormField(
-      inputFormatters: [
-        BlacklistingTextInputFormatter(
-          RegExp(
-              r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'),
-        ),
-      ],
       decoration: InputDecoration(
         hintText: 'Some description for your memory',
         labelText: 'Description',
       ),
       minLines: 1,
       maxLines: null,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       style: TextStyle(fontSize: 18),
       validator: (String value) {
         if (value.isEmpty) {
@@ -262,22 +250,12 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       var imageFile = File(pickedFile.path);
       List<int> imageBytes = imageFile.readAsBytesSync();
       String photoBase64 = base64Encode(imageBytes);
-      print(photoBase64);
+      // print(photoBase64);
 
       setState(() {
         _image = File(pickedFile.path);
         memoryImage = photoBase64;
       });
-
-      // Directory appDocDir = await getApplicationDocumentsDirectory();
-      // final fileName = path.basename(pickedFile.path);
-      // final savedImage =
-      //     await File(pickedFile.path).copy('${appDocDir.path}/$fileName');
-      // setState(() {
-      //   _image = File(pickedFile.path);
-      //   memoryImagePath = savedImage.path;
-      // });
-      // print(memoryImagePath);
     } else {
       return;
     }
@@ -322,7 +300,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     DateTime now = DateTime.now();
     memoryCreatedTime = now;
     String convertedDateTime =
-        "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}";
+        "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}"; //converts DateTime to String
     print(convertedDateTime);
     if (!_formKey.currentState.validate()) {
       return;
