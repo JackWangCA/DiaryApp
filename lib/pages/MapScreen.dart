@@ -37,8 +37,9 @@ class _MapScreenState extends State<MapScreen> {
     } else {
       currentMemoryLocation = LatLng(38.897788, -77.035356);
     }
-    print(widget.memory.memoryLat);
-    print(widget.memory.memoryLong);
+    // print(widget.memory.memoryLat);
+    // print(widget.memory.memoryLong);
+    //testing code
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -55,6 +56,7 @@ class _MapScreenState extends State<MapScreen> {
           initialCameraPosition:
               CameraPosition(target: currentMemoryLocation, zoom: 13.0),
           onMapCreated: _onMapCreated,
+          myLocationButtonEnabled: false,
           mapType: MapType.normal,
           zoomControlsEnabled: true,
           zoomGesturesEnabled: true,

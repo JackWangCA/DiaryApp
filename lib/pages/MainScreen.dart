@@ -32,20 +32,14 @@ class _MainScreenPageState extends State<MainScreenPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text(
-          'Memories',
-          style: Theme.of(context).textTheme.headline1,
-        ),
+        title: Text('Memories', style: Theme.of(context).textTheme.headline1),
         actions: [
           Container(
             padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                icon: Icon(
-                  Icons.sort,
-                  color: Theme.of(context).accentColor,
-                  size: 25.0,
-                ),
+                icon: Icon(Icons.sort,
+                    color: Theme.of(context).accentColor, size: 25.0),
                 items: <String>['Alphabet', 'Time']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -103,7 +97,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
     return ListView.builder(
       itemCount: memoryList.length,
       itemBuilder: (BuildContext context, int index) {
-        // print(memoryList[index].memoryImage);
         return buildItem(memoryList[index], index);
       },
     );
@@ -122,10 +115,11 @@ class _MainScreenPageState extends State<MainScreenPage> {
           context,
           MaterialPageRoute(
             builder: (_) => MemoryDetailScreen(
-              memory: memory,
-            ),
+                memory:
+                    memory), //pushes memoryDetail screen and passes the chosen memory
           ),
         ).then((memory) {
+          //if a memory is being returned, it means we want to delete it
           if (memory != null) {
             setState(() {
               removeMemory(memory);
@@ -159,14 +153,16 @@ class _MainScreenPageState extends State<MainScreenPage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(0.0, 2.0),
-                        blurRadius: 6.0)
-                  ]),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0.0, 2.0),
+                    blurRadius: 6.0,
+                  )
+                ],
+              ),
               child: Stack(
                 children: [
                   ClipRRect(
@@ -177,8 +173,10 @@ class _MainScreenPageState extends State<MainScreenPage> {
                       image: memory.memoryImage == null
                           ? AssetImage(
                               'assets/no_image.jpg') //if the user provides no image
-                          : MemoryImage(_img64),
-                      fit: BoxFit.cover,
+                          : MemoryImage(
+                              _img64), //creates image from the decoded bytes
+                      fit: BoxFit
+                          .cover, //makes sure that the image covers the entire container
                     ),
                   ),
                   Positioned(
@@ -195,7 +193,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
                                   borderRadius: BorderRadius.circular(8.0),
                                   color: Theme.of(context)
                                       .accentColor
-                                      .withOpacity(0.7),
+                                      .withOpacity(0.7), // 70% opacity
                                 ),
                               ),
                             ),
