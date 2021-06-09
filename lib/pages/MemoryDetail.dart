@@ -20,10 +20,17 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        widget.memory.memoryName,
-        style: Theme.of(context).textTheme.headline1,
-      )),
+        title: Text(
+          widget.memory.memoryName,
+          style: Theme.of(context).textTheme.headline1,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context).pop(widget.memory);
+        },
+      ),
     );
   }
 }

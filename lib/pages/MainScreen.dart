@@ -53,7 +53,18 @@ class _MainScreenPageState extends State<MainScreenPage> {
                   );
                 }).toList(),
                 onChanged: (String value) {
-                  // needs to implement
+                  if (value == 'Alphabet' && memoryList.length != 0) {
+                    setState(() {
+                      memoryList.sort((a, b) => a.memoryName
+                          .toLowerCase()
+                          .compareTo(b.memoryName.toLowerCase()));
+                    });
+                  } else if (value == 'Time' && memoryList.length != 0) {
+                    setState(() {
+                      memoryList.sort((b, a) =>
+                          a.memoryCreatedTime.compareTo(b.memoryCreatedTime));
+                    });
+                  }
                 },
               ),
             ),
@@ -113,7 +124,13 @@ class _MainScreenPageState extends State<MainScreenPage> {
               memory: memory,
             ),
           ),
-        );
+        ).then((memory) {
+          if (memory != null) {
+            setState(() {
+              removeMemory(memory);
+            });
+          }
+        });
       },
       child: Container(
         margin: EdgeInsets.all(10.0),
