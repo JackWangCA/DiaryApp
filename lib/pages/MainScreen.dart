@@ -30,6 +30,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
           'Memories',
@@ -73,7 +74,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
       ),
       body: memoryList.isEmpty ? emptyList() : listView(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (BuildContext context) {
@@ -171,7 +172,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image(
-                      height: 180.0,
+                      height: 230.0,
                       width: MediaQuery.of(context).size.width,
                       image: memory.memoryImage == null
                           ? AssetImage(

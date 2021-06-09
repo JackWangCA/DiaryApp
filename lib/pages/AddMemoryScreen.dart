@@ -39,6 +39,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -72,7 +73,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       ),
       //the floating button at the bottom right ofthe screen
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           saveMemory();
         },
@@ -96,7 +97,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           ),
           FlatButton(
             padding: EdgeInsets.all(16),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             child: Text(
               'Change Image',
             ),
@@ -112,7 +113,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         ),
         style: ButtonStyle(
           backgroundColor:
-              MaterialStateProperty.all(Theme.of(context).accentColor),
+              MaterialStateProperty.all(Theme.of(context).primaryColor),
         ),
       );
     }
@@ -213,7 +214,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           ),
           style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all(Theme.of(context).accentColor),
+                MaterialStateProperty.all(Theme.of(context).primaryColor),
           ),
         ),
         locationHintText(),

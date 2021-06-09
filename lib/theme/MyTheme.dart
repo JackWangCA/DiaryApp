@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class MyTheme {
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    primaryColor: Color(0xFFF0F0F0),
-    accentColor: Color(0xFFFFBD2E),
+    primaryColor: Color(0xFFFFBD2E),
+    accentColor: Color(0xFFF0F0F0),
     textTheme: TextTheme(
       bodyText1: TextStyle(
           color: Colors.white,
