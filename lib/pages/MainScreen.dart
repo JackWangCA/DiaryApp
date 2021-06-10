@@ -44,7 +44,10 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value),
+                    child: Text(
+                      value,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                   );
                 }).toList(),
                 onChanged: (String value) {
@@ -66,16 +69,19 @@ class _MainScreenPageState extends State<MainScreenPage> {
           )
         ],
       ),
-      body: memoryList.isEmpty ? emptyList() : listView(),
+      body: memoryList.isEmpty
+          ? emptyList()
+          : listView(), // if the list is empty, show empty view, otherwise, show listview
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) {
-              return AddMemoryPage();
-            }),
-          ).then((memory) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+            //push add memory page
+            return AddMemoryPage();
+          })).then((memory) {
             if (memory != null) {
+              //if a memory is returned, add that memory
               setState(() {
                 addMemory(memory);
               });
@@ -134,35 +140,19 @@ class _MainScreenPageState extends State<MainScreenPage> {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            Positioned(
-              bottom: 2.0,
-              child: Container(
-                height: 120.0,
-                width: 200.0,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                ),
-              ),
-            ),
             Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(0.0, 2.0),
-                    blurRadius: 6.0,
-                  )
-                ],
-              ),
+              //shadow behind the image, un-comment if you want to enable it
+              // decoration: BoxDecoration(
+              //   color: Colors.white,
+              //   borderRadius: BorderRadius.circular(20.0),
+              //   boxShadow: [
+              //     BoxShadow(
+              //       color: Colors.black26,
+              //       offset: Offset(5.0, .0),
+              //       blurRadius: 10.0,
+              //     )
+              //   ],
+              // ),
               child: Stack(
                 children: [
                   ClipRRect(

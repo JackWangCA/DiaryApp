@@ -26,17 +26,9 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.memory.memoryLat == 0.0) {
-      titleText = 'Location not provided';
-    } else {
-      titleText = widget.memory.memoryName;
-    }
-    if (widget.memory.memoryLat != 0.0) {
-      currentMemoryLocation =
-          LatLng(widget.memory.memoryLat, widget.memory.memoryLong);
-    } else {
-      currentMemoryLocation = LatLng(38.897788, -77.035356);
-    }
+    titleText = widget.memory.memoryName;
+    currentMemoryLocation =
+        LatLng(widget.memory.memoryLat, widget.memory.memoryLong);
     // print(widget.memory.memoryLat);
     // print(widget.memory.memoryLong);
     //testing code
@@ -69,16 +61,14 @@ class _MapScreenState extends State<MapScreen> {
   _onMapCreated(GoogleMapController controller) {
     setState(() {
       mapController = controller;
-      if (widget.memory.memoryLat != 0.0 && widget.memory.memoryLong != 0.0) {
-        _markers.add(Marker(
-            markerId: MarkerId('0'),
-            position: currentMemoryLocation,
-            infoWindow: InfoWindow(
-              title: titleText,
-              snippet: DateFormat('yyyy-MM-dd – kk:mm')
-                  .format(widget.memory.memoryCreatedTime),
-            )));
-      }
+      _markers.add(Marker(
+          markerId: MarkerId('0'),
+          position: currentMemoryLocation,
+          infoWindow: InfoWindow(
+            title: titleText,
+            snippet: DateFormat('yyyy-MM-dd – kk:mm')
+                .format(widget.memory.memoryCreatedTime),
+          )));
     });
   }
 }

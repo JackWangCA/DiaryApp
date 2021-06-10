@@ -78,7 +78,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: Text(
                       widget.memory.memoryDescription,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),
@@ -98,7 +98,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                     child: Text(
                       widget.memory.memoryCategory,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),
@@ -119,7 +119,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     child: Text(
                       DateFormat('yyyy-MM-dd – kk:mm')
                           .format(widget.memory.memoryCreatedTime),
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),
@@ -133,25 +133,10 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
-                  ),
-                  child: Text(
-                    'View Map Location',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return MapScreen(
-                          memory: widget.memory,
-                        );
-                      }),
-                    );
-                  },
-                )
+                widget.memory.memoryLat != 0.0 &&
+                        widget.memory.memoryLong != 0.0
+                    ? viewMapButton()
+                    : noLocationText(),
               ],
             ),
           ],
@@ -163,6 +148,41 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
         onPressed: () {
           Navigator.of(context).pop(widget.memory);
         },
+      ),
+    );
+  }
+
+  Widget viewMapButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Theme.of(context).primaryColor,
+      ),
+      child: Text(
+        'View Map Location',
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) {
+            return MapScreen(
+              memory: widget.memory,
+            );
+          }),
+        );
+      },
+    );
+  }
+
+  Widget noLocationText() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+        child: Text(
+          'No location provided',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
       ),
     );
   }
