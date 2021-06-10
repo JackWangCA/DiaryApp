@@ -78,6 +78,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
           : listView(), // if the list is empty, show empty view, otherwise, show listview
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (BuildContext context) {

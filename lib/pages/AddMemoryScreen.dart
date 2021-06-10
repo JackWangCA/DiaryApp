@@ -72,6 +72,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       //the floating button at the bottom right ofthe screen
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
         onPressed: () {
           saveMemory();
         },
