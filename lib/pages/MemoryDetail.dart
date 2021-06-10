@@ -137,6 +137,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
                         widget.memory.memoryLong != 0.0
                     ? viewMapButton()
                     : noLocationText(),
+                SizedBox(height: 40),
               ],
             ),
           ],
