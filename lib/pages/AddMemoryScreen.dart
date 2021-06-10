@@ -185,8 +185,15 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         return null;
       },
       // value: 'Study',
-      items: <String>['Study', 'Family', 'Friends', 'Vacation']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>[
+        'Study',
+        'Family',
+        'Friends',
+        'Work',
+        'Vacation',
+        'Games',
+        'Food',
+      ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
