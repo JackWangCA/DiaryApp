@@ -23,7 +23,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
   //declaring variables
   File _image;
   final picker = ImagePicker();
-  String dropdownValue = 'Study';
   String memoryImage;
   String memoryName;
   String memoryDescription;
@@ -94,11 +93,18 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
             fit: BoxFit.cover,
             height: 250,
           ),
-          FlatButton(
-            padding: EdgeInsets.all(16),
-            color: Theme.of(context).primaryColor,
-            child: Text(
-              'Change Image',
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).primaryColor.withOpacity(0.7),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+              child: Text(
+                'Change Image',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
             ),
             onPressed: getImageFromLibrary,
           )
