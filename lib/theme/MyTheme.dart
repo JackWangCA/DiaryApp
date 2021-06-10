@@ -5,6 +5,7 @@ class MyTheme {
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Color(0xFFFFBD2E),
     accentColor: Color(0xFFF0F0F0),
+    buttonColor: Colors.black,
     textTheme: TextTheme(
       bodyText1: TextStyle(
         //text in the memory details page

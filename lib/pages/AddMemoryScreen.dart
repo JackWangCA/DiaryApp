@@ -72,7 +72,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       //the floating button at the bottom right ofthe screen
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
+        foregroundColor: Theme.of(context).buttonColor,
         onPressed: () {
           saveMemory();
         },
@@ -85,7 +85,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
 
   Widget buildMemoryImage() {
     if (memoryImage != null) {
-      final image = FileImage(File(memoryImage));
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[

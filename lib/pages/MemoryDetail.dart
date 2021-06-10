@@ -144,7 +144,7 @@ class _MemoryDetailScreenState extends State<MemoryDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
+        foregroundColor: Theme.of(context).buttonColor,
         child: Icon(Icons.delete),
         onPressed: () {
           Navigator.of(context).pop(widget.memory);

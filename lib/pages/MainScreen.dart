@@ -44,7 +44,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 icon: Icon(Icons.sort,
-                    color: Theme.of(context).accentColor, size: 25.0),
+                    color: Theme.of(context).buttonColor, size: 25.0),
                 items: <String>['Alphabet', 'Time']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -78,7 +78,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
           : listView(), // if the list is empty, show empty view, otherwise, show listview
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
+        foregroundColor: Theme.of(context).buttonColor,
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (BuildContext context) {
