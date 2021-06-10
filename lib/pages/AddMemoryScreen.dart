@@ -119,6 +119,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         style: ButtonStyle(
           backgroundColor:
               MaterialStateProperty.all(Theme.of(context).primaryColor),
+          foregroundColor:
+              MaterialStateProperty.all(Theme.of(context).buttonColor),
         ),
       );
     }
@@ -223,6 +225,8 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
           style: ButtonStyle(
             backgroundColor:
                 MaterialStateProperty.all(Theme.of(context).primaryColor),
+            foregroundColor:
+                MaterialStateProperty.all(Theme.of(context).buttonColor),
           ),
         ),
         locationHintText(),
