@@ -33,6 +33,7 @@ class _MapScreenState extends State<MapScreen> {
     currentMemoryLocation =
         LatLng(widget.memory.memoryLat, widget.memory.memoryLong);
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         leading: IconButton(

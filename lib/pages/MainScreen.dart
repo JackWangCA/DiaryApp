@@ -12,12 +12,14 @@ class MainScreenPage extends StatefulWidget {
 }
 
 class _MainScreenPageState extends State<MainScreenPage> {
-  List<Memory> memoryList = new List.empty();
-  SharedPreferences sharedPreferences;
+  List<Memory> memoryList =
+      new List.empty(); //declare an empty list of memories
+  SharedPreferences
+      sharedPreferences; //declare a global variable sharePreferences
 
   @override
   void initState() {
-    loadSharedPreferencesAndData();
+    loadSharedPreferencesAndData(); //load the data from sharedPreferences to the memory list
     super.initState();
   }
 
@@ -30,10 +32,15 @@ class _MainScreenPageState extends State<MainScreenPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('Memories', style: Theme.of(context).textTheme.headline1),
+        title: Text(
+          'Memories',
+          style: Theme.of(context).textTheme.headline1,
+        ),
         actions: [
+          //the action button the is on the right of the app bar
           Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+            padding: EdgeInsets.fromLTRB(0, 0, 20,
+                0), //keep some distance from the right side of the screen
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 icon: Icon(Icons.sort,
@@ -237,7 +244,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
   }
 
   void loadSharedPreferencesAndData() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    loadData();
+    sharedPreferences = await SharedPreferences
+        .getInstance(); //gets data from shared preferences
+    loadData(); //load the data into the memory list, this process repeats every time the main page loads
   }
 }
