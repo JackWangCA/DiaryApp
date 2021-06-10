@@ -4,7 +4,10 @@ import 'package:diary/model/MemoryModel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//API Key
 //AIzaSyCr7eDEsbicqo7KFpBB2Nyt1UdURhn0DCw
+//If you don't know what this is, probably don't touch it
+//-Jack Wang
 
 class MapScreen extends StatefulWidget {
   final Memory memory;
@@ -29,9 +32,6 @@ class _MapScreenState extends State<MapScreen> {
     titleText = widget.memory.memoryName;
     currentMemoryLocation =
         LatLng(widget.memory.memoryLat, widget.memory.memoryLong);
-    // print(widget.memory.memoryLat);
-    // print(widget.memory.memoryLong);
-    //testing code
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,

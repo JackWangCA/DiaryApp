@@ -27,11 +27,11 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires photo library permission  Photo Library</string>
+	<string>This app requires photo library permission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app requires location permission  Location</string>
+	<string>This app requires location permission</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires camera permission  Camera</string>
+	<string>This app requires camera permission</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 
 //This screen is shown when the user clicks on the add memory button on the mainscreen page
 
@@ -140,7 +139,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       },
       onSaved: (String value) {
         memoryName = value;
-        print(Text(memoryName));
       },
     );
   }
@@ -165,7 +163,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       },
       onSaved: (String value) {
         memoryDescription = value;
-        print(Text(memoryDescription));
       },
     );
   }
@@ -191,7 +188,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       }).toList(),
       onSaved: (String value) {
         memoryCategory = value;
-        print(Text(memoryCategory));
       },
       onChanged: (String value) {
         memoryCategory = value;
@@ -207,7 +203,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         ElevatedButton(
           onPressed: () {
             getLocation();
-            print('get location is called');
           },
           child: Icon(
             Icons.add_location,
@@ -251,7 +246,6 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       var imageFile = File(pickedFile.path);
       List<int> imageBytes = imageFile.readAsBytesSync();
       String photoBase64 = base64Encode(imageBytes);
-      // print(photoBase64);
 
       setState(() {
         _image = File(pickedFile.path);
@@ -292,17 +286,11 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       memoryLat = currenPosition.latitude;
       memoryLong = currenPosition.longitude;
     });
-    print(memoryLat);
-    print(memoryLong);
   }
 
   saveMemory() {
-    print(Text('Save Memory function is called'));
     DateTime now = DateTime.now();
     memoryCreatedTime = now;
-    String convertedDateTime =
-        "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString()}-${now.minute.toString()}"; //converts DateTime to String
-    print(convertedDateTime);
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -316,10 +304,7 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
       memoryLat: memoryLat,
       memoryLong: memoryLong,
     );
-    // print(currentMemory.memoryImage);
 
     Navigator.of(context).pop(currentMemory);
-
-    print('form saved');
   }
 }

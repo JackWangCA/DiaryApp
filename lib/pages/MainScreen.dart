@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:diary/model/MemoryModel.dart';
 import 'package:diary/pages/AddMemoryScreen.dart';
@@ -13,8 +12,7 @@ class MainScreenPage extends StatefulWidget {
 }
 
 class _MainScreenPageState extends State<MainScreenPage> {
-  // ignore: deprecated_member_use
-  List<Memory> memoryList = new List<Memory>();
+  List<Memory> memoryList = new List.empty();
   SharedPreferences sharedPreferences;
 
   @override
@@ -44,10 +42,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(
-                      value,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
+                    child: Text(value,
+                        style: Theme.of(context).textTheme.bodyText1),
                   );
                 }).toList(),
                 onChanged: (String value) {
@@ -55,12 +51,13 @@ class _MainScreenPageState extends State<MainScreenPage> {
                     setState(() {
                       memoryList.sort((a, b) => a.memoryName
                           .toLowerCase()
-                          .compareTo(b.memoryName.toLowerCase()));
+                          .compareTo(b.memoryName
+                              .toLowerCase())); //sort a list by their alphabetically order
                     });
                   } else if (value == 'Time' && memoryList.length != 0) {
                     setState(() {
-                      memoryList.sort((b, a) =>
-                          a.memoryCreatedTime.compareTo(b.memoryCreatedTime));
+                      memoryList.sort((b, a) => a.memoryCreatedTime.compareTo(b
+                          .memoryCreatedTime)); //sort a list by their created time
                     });
                   }
                 },
