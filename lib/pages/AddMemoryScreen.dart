@@ -107,13 +107,17 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
-            onPressed: photoActionSheet,
+            onPressed: () {
+              photoActionSheet();
+            },
           )
         ],
       );
     } else {
       return ElevatedButton(
-        onPressed: photoActionSheet,
+        onPressed: () {
+          photoActionSheet();
+        },
         child: Icon(
           Icons.add_a_photo,
         ),
@@ -127,18 +131,23 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     }
   }
 
-  Widget photoActionSheet() {
-    return CupertinoActionSheet(
-      actions: [
-        CupertinoActionSheetAction(
-          onPressed: getImageFromLibrary,
-          child: Text('Photo Library'),
-        ),
-        CupertinoActionSheetAction(
-          onPressed: getImageFromCamera,
-          child: Text('Camera'),
-        ),
-      ],
+  photoActionSheet() {
+    return showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: Text('Add Photos'),
+        message: Text('Choose photo from'),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: getImageFromLibrary,
+            child: Text('Photo Library'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: getImageFromCamera,
+            child: Text('Camera'),
+          ),
+        ],
+      ),
     );
   }
 
