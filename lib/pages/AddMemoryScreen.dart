@@ -139,11 +139,17 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         message: Text('Choose photo from'),
         actions: [
           CupertinoActionSheetAction(
-            onPressed: getImageFromLibrary,
+            onPressed: () {
+              getImageFromLibrary();
+              Navigator.pop(context);
+            },
             child: Text('Photo Library'),
           ),
           CupertinoActionSheetAction(
-            onPressed: getImageFromCamera,
+            onPressed: () {
+              getImageFromCamera();
+              Navigator.pop(context);
+            },
             child: Text('Camera'),
           ),
         ],
