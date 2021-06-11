@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:diary/model/MemoryModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -106,13 +107,13 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
-            onPressed: getImageFromLibrary,
+            onPressed: photoActionSheet,
           )
         ],
       );
     } else {
       return ElevatedButton(
-        onPressed: getImageFromLibrary,
+        onPressed: photoActionSheet,
         child: Icon(
           Icons.add_a_photo,
         ),
@@ -124,6 +125,21 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
         ),
       );
     }
+  }
+
+  Widget photoActionSheet() {
+    return CupertinoActionSheet(
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: getImageFromLibrary,
+          child: Text('Photo Library'),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: getImageFromCamera,
+          child: Text('Camera'),
+        ),
+      ],
+    );
   }
 
   //the field that allows the user to type in the name of the memory
@@ -257,6 +273,26 @@ class _AddMemoryPageState extends State<AddMemoryPage> {
     var pickedFile;
     try {
       pickedFile = await picker.getImage(source: ImageSource.gallery);
+    } catch (e) {}
+
+    if (pickedFile != null) {
+      var imageFile = File(pickedFile.path);
+      List<int> imageBytes = imageFile.readAsBytesSync();
+      String photoBase64 = base64Encode(imageBytes);
+
+      setState(() {
+        _image = File(pickedFile.path);
+        memoryImage = photoBase64;
+      });
+    } else {
+      return;
+    }
+  }
+
+  Future getImageFromCamera() async {
+    var pickedFile;
+    try {
+      pickedFile = await picker.getImage(source: ImageSource.camera);
     } catch (e) {}
 
     if (pickedFile != null) {
