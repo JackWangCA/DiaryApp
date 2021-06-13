@@ -13,7 +13,7 @@ class MainScreenPage extends StatefulWidget {
 
 class _MainScreenPageState extends State<MainScreenPage> {
   List<Memory> memoryList =
-      new List.empty(); //declare an empty list of memories
+      new List<Memory>(); //declare an empty list of memories
   SharedPreferences
       sharedPreferences; //declare a global variable sharePreferences
 
