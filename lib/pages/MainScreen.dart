@@ -13,6 +13,7 @@ class MainScreenPage extends StatefulWidget {
 
 class _MainScreenPageState extends State<MainScreenPage> {
   List<Memory> memoryList =
+      // ignore: deprecated_member_use
       new List<Memory>(); //declare an empty list of memories
   SharedPreferences
       sharedPreferences; //declare a global variable sharePreferences
